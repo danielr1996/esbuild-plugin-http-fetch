@@ -34,8 +34,12 @@ let loadSource = async ({path}) => {
     contents = contents.replace(pattern, comment)
   }
 
+  const allowedLoaders = ['js','ts','tsx','jsx','json','css','text','binary','base64','dataurl','file','copy']
   let {pathname} = new URL(source.url)
   let loader = pathname.match(/[^.]+$/)[0]
+  if(!allowedLoaders.includes(loader)){
+      loader = 'ts'
+  }
 
   return {contents, loader}
 }
